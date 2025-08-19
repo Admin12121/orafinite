@@ -1,15 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Provider } from "@/components/provider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const geistSansLight = localFont({
+  src: "./fonts/AtAero-Light.woff2",
+  variable: "--font-geist-sans-light",
+  weight: "300",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const geistSansRegular = localFont({
+  src: "./fonts/AtAero-Regular.woff2",
+  variable: "--font-geist-sans-regular",
+  weight: "400",
+});
+
+
+const geistSansMedium = localFont({
+  src: "./fonts/AtAero-Medium.woff2",
+  variable: "--font-geist-sans-medium",
+  weight: "500",
+});
+
+const vrc = localFont({
+  src: "./fonts/vrc.ttf",
+  variable: "--font-vrc",
+  weight: "500",
+});
+
+const geistSansSemibold = localFont({
+  src: "./fonts/AtAero-Semibold.woff2",
+  variable: "--font-geist-sans-semibold",
+  weight: "600",
+});
+
+const geistSansBold = localFont({
+  src: "./fonts/AtAero-Bold.woff2",
+  variable: "--font-geist-sans-bold",
+  weight: "700",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSansLight.variable} ${vrc.variable} ${geistSansRegular.variable} ${geistSansMedium.variable} ${geistSansSemibold.variable} ${geistSansBold.variable} antialiased`}
       >
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
