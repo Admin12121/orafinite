@@ -164,10 +164,10 @@ export default function AutoJoinCard() {
       onMouseLeave={() => setHovered(false)}
     >
       <div className="relative z-10 flex-none px-6 order-last pb-6">
-        <h3 className="text-sm font-medium text-white">Auto-join</h3>
+        <h3 className="text-sm font-medium text-white">Customer Accounts</h3>
         <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-          Let your users discover and join organizations based on their email
-          domain.
+          Let your buyers sign up, track their orders, and save payment details
+          for faster checkout.
         </p>
       </div>
       <div
@@ -292,7 +292,7 @@ export default function AutoJoinCard() {
                 <path d="M8 5v6m3-3H5"></path>
               </g>
             </svg>
-            Auto-join
+            Sign up
             <motion.div
               className="absolute -bottom-1.5 left-1/2 -z-10 -ml-10 h-6 w-20 transform-gpu rounded-[50%] bg-gradient-to-r from-purple-500 from-25% to-sky-300 to-75% blur-sm"
               animate={{ opacity: 0.25 + 0.55 * glow, scale: 1 + 0.15 * glow }}

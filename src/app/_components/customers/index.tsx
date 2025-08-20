@@ -98,9 +98,10 @@ export default function CustomRolesPermissions() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative z-10 flex-none px-6 pt-6">
-        <h3 className="text-sm font-medium">Custom roles and permissions</h3>
+        <h3 className="text-sm font-medium">Team Collaboration</h3>
         <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-          Powerful primitives to fully customize your app's authorization story.
+          Invite staff or partners with custom roles and permissions. Work
+          together while keeping control.
         </p>
       </div>
       <div

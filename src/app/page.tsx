@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatedShinyText } from "@/components/global/magic";
-import { Safari } from "@/components/global/safari";
 import { cn } from "@/lib/utils";
 import { ArrowRightIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
@@ -13,9 +12,10 @@ import { ProductCard } from "./_components/product-card";
 import Checkout from "./_components/payment-method";
 import { FlickeringGrid } from "@/components/global/fliper-grid";
 import SignIn from "@/components/global/signin-button";
-import Encryption from "./_components/encryption-animation";
 import AutoJoinCard from "./_components/customers/join";
 import EncCard from "./_components/encryption-animation";
+import PerformanceMeter from "./_components/performance-meter";
+import Card_Swap from "./_components/card_swap";
 
 export default function Home() {
   const keypadRef = useRef<HTMLDivElement | null>(null);
@@ -337,10 +337,10 @@ export default function Home() {
         <div className="relative pb-[calc(theme(padding.32)+theme(height.11))] pt-32">
           <div className="text-center">
             <h2 className="text-sm font-medium text-[#e2f75d]">
-              User authentication
+              Store Creation
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.015em] text-white">
-              Everything you need to build business on web.
+              Everything you need to Start Your business.
             </p>
             <p className="mx-auto mb-4 mt-4 max-w-xl text-balance text-zinc-400">
               <span
@@ -366,7 +366,7 @@ export default function Home() {
               target=""
               href="/user-authentication"
             >
-              Explore user authentication
+              Explore more
               <svg
                 viewBox="0 0 10 10"
                 aria-hidden="true"
@@ -399,28 +399,7 @@ export default function Home() {
           </div>
           <div className="relative mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem]">
             <div className="mt-16 grid grid-cols-1 grid-rows-[repeat(12,minmax(0,260px))] gap-2 md:grid-cols-2 md:[grid-template-rows:repeat(6,minmax(0,260px))] xl:grid-flow-col xl:grid-cols-3 xl:[grid-template-rows:repeat(4,minmax(0,260px))] h-full">
-              <div className="relative group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
-                <div className="relative z-10 flex-none px-6 pt-6 h-full">
-                  <Safari
-                    url="orifinite.com"
-                    mode="simple"
-                    className="size-full scale-[.8] absolute right-0 bottom-0 transform group-hover:translate-y-10 group-hover:translate-x-40 transition ease-in-out duration-500"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-zinc-900"
-                    style={{ transform: "translateY(0rem)" }}
-                  ></div>
-                </div>
-                <div className="relative z-10 flex-none px-6 order-last pb-6 -top-[110px]">
-                  <h3 className="text-sm font-medium text-white">
-                    Advanced security
-                  </h3>
-                  <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-                    Clerk is SOC 2 type 2 compliant and CCPA compliant. We
-                    conduct regular third-party audits and penetration tests.
-                  </p>
-                </div>
-              </div>
+              <Card_Swap />
               <CustomRolesPermissions />
               <div className="group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
                 <AutoJoinCard />
@@ -428,98 +407,17 @@ export default function Home() {
               <div className="group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden row-span-2">
                 <div className="relative z-10 flex-none px-6 pt-6">
                   <h3 className="text-sm font-medium text-white">
-                    Fraud and Abuse Prevention
+                    One-Click Store Setup
                   </h3>
                   <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-                    Reduce fraudulent sign-ups and free trial abuse by blocking
-                    high-risk disposable email domains and restricting the use
-                    of email subaddresses with the “+” separator.
+                    Launch your eCommerce site instantly. Select a template,
+                    enter your store name, and go live in just one click.
                   </p>
                 </div>
                 <SecurityDashboard />
               </div>
               <EncCard />
-              <div className="group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
-                <svg
-                  className="half-circle-pie m-auto rtl:-scale-x-100"
-                  viewBox="0 0 34 17"
-                  width="340px"
-                  height="170px"
-                  role="img"
-                  aria-label="Half circle chart showing 9 of 14 segments filled"
-                >
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(6.43) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(19.29) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(32.15) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(45.01) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(57.87) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(70.72999999999999) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(83.59) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(96.44999999999999) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-[#e2f75d] transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(109.31) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-zinc-100 dark:fill-zinc-700 transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(122.16999999999999) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-zinc-100 dark:fill-zinc-700 transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(135.03) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-zinc-100 dark:fill-zinc-700 transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(147.89) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-zinc-100 dark:fill-zinc-700 transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(160.75) translate(-13.5,0)"
-                  ></path>
-                  <path
-                    className="fill-zinc-100 dark:fill-zinc-700 transition-colors duration-300"
-                    d="M -2.7 -1.5 L 2.7 -0.98 C 3.1 -0.93 3.5 -0.582 3.5 -0.182 L 3.5 0.217 C 3.5 0.629 3.1 0.93 2.7 0.98 L -2.7 1.5 C -3.142 1.5 -3.5 1.142 -3.5 0.7 L -3.5 -0.7 C -3.5 -1.142 -3.142 -1.5 -2.7 -1.5 Z"
-                    transform="translate(17,17) rotate(173.61) translate(-13.5,0)"
-                  ></path>
-                </svg>
-              </div>
+              <PerformanceMeter />
               <div className="group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]">
                 <AnimatCard />
               </div>
@@ -530,11 +428,10 @@ export default function Home() {
               >
                 <div className="relative z-10 flex-none px-6 pt-6">
                   <h3 className="text-sm font-medium">
-                    Organization UI Components
+                    Optimized UI & Components
                   </h3>
                   <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-                    Clerk's UI components add turn-key simplicity to complex
-                    Organization management tasks.
+                    Fast, responsive design with drag-and-drop UI blocks .
                   </p>
                 </div>
                 <div className="mx-2 mt-2 gap-2 flex flex-col items-center justify-center h-full">
@@ -577,7 +474,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full relative flex items-center justify-center bg-white pt-32">
+      <div className="w-full relative flex flex-col items-center justify-center bg-white pt-32">
         <div className="absolute inset-x-0 -top-11 mt-[calc(-3/16*1rem)] flex items-end">
           <div className="mr-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-white"></div>
           <div className="flex justify-between mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem]">
@@ -618,6 +515,9 @@ export default function Home() {
             </span>
           </p>
         </div>
+        <div className="h-[500px] p-10 relative grid grid-cols-2 grid-rows-1 w-full">
+          <Card_Swap />
+        </div>
         <div className="absolute bottom-0 mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem]">
           <div className="relative -mx-2.5 flex -bottom-1 -mt-12">
             <svg
@@ -638,7 +538,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="h-[50vh]"></div>
+      <div className="h-[50vh] relative"></div>
     </main>
   );
 }

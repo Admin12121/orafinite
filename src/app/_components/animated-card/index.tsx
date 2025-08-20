@@ -36,10 +36,11 @@ export function AnimatCard() {
       <CardVisual>
         <Visual3 mainColor="#28282b" secondaryColor="#e2f75d" />
       </CardVisual>
-      <div className="relative z-10 flex-none px-6 order-last pb-6 -top-[70px]">
-        <h3 className="text-sm font-medium text-white">Just find the right caption</h3>
+      <div className="relative z-10 flex-none px-6 order-last pb-6 -top-[90px]">
+        <h3 className="text-sm font-medium text-white">Smart Analytics</h3>
         <p className="mt-2 text-pretty text-sm/5 text-gray-400">
-          This card will tell everything you want.
+          Track revenue, sales trends, in real time to
+          make smarter business decisions.
         </p>
       </div>
     </AnimatedCard>

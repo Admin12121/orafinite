@@ -180,16 +180,32 @@ const EncCard = () => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   return (
     <div
-      className="group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden"
+      className="relative group isolate flex flex-col rounded-2xl bg-zinc-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden"
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
     >
-      <Encryption />
+      <motion.div
+        className="transform translate-y-24"
+        initial={{ opacity: 0 }}
+        animate={isCardHovered ? { opacity: 1 } : { opacity: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{
+          duration: 0.3,
+          ease: "easeInOut",
+          delay: isCardHovered ? 2 : 0,
+        }}
+      >
+        <Encryption />
+      </motion.div>
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-zinc-900/10 z-10"
+        style={{ transform: "translateY(0rem)" }}
+      ></div>
       <div className="relative z-10 flex-none px-6 order-last pb-6">
-        <h3 className="text-sm font-medium text-white">Passwords</h3>
+        <h3 className="text-sm font-medium text-white">Store Security</h3>
         <p className="mt-2 text-pretty text-sm/5 text-zinc-400">
-          Simple and secure password authentication, complete with breach
-          detection and recovery options.
+          Your business and customer data are always protected with bank-level
+          encryption, fraud detection, and secure payment processing.
         </p>
       </div>
       <div
@@ -199,6 +215,13 @@ const EncCard = () => {
       >
         <motion.div
           className="absolute inset-0 flex flex-col items-center gap-4 group-hover:-translate-y-[2rem] transition-all duration-300 ease-initial"
+          initial={{ y: 0 }}
+          animate={isCardHovered ? { y: 64 } : { y: 0 }}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+            delay: isCardHovered ? 1.5 : 0,
+          }}
         >
           <div className="absolute inset-0 top-[5.25rem] flex justify-center overflow-hidden [mask:linear-gradient(black,transparent)]">
             <svg
@@ -211,8 +234,72 @@ const EncCard = () => {
               <path
                 d="M21.6502 2.38322L2.30334 22.0051C0.827423 23.502 0 25.5197 0 27.6219L0 214L317 214L317 27.6219C317 25.5197 316.173 23.502 314.697 22.0051L295.35 2.38322C293.846 0.858434 291.794 0 289.653 0L27.3468 0C25.2055 0 23.1536 0.858435 21.6502 2.38322Z"
                 fill="#2B2B30"
-                stroke="white"
-                strokeOpacity="0.04"
+                stroke="#000"
+                strokeOpacity="1"
+              ></path>
+            </svg>
+          </div>
+          <div className="absolute inset-0 top-[5.25rem] flex justify-center overflow-hidden [mask:linear-gradient(black,transparent)]">
+            <svg
+              width="317"
+              height="214"
+              viewBox="0 0 317 214"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.6502 2.38322L2.30334 22.0051C0.827423 23.502 0 25.5197 0 27.6219L0 214L317 214L317 27.6219C317 25.5197 316.173 23.502 314.697 22.0051L295.35 2.38322C293.846 0.858434 291.794 0 289.653 0L27.3468 0C25.2055 0 23.1536 0.858435 21.6502 2.38322Z"
+                fill="#2B2B30"
+                stroke="#000"
+                strokeOpacity="1"
+              ></path>
+            </svg>
+          </div>
+          <div className="absolute inset-0 top-[5.25rem] flex justify-center overflow-hidden [mask:linear-gradient(black,transparent)]">
+            <svg
+              width="317"
+              height="214"
+              viewBox="0 0 317 214"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.6502 2.38322L2.30334 22.0051C0.827423 23.502 0 25.5197 0 27.6219L0 214L317 214L317 27.6219C317 25.5197 316.173 23.502 314.697 22.0051L295.35 2.38322C293.846 0.858434 291.794 0 289.653 0L27.3468 0C25.2055 0 23.1536 0.858435 21.6502 2.38322Z"
+                fill="#2B2B30"
+                stroke="#000"
+                strokeOpacity="1"
+              ></path>
+            </svg>
+          </div>
+          <div className="absolute inset-0 top-[5.25rem] flex justify-center overflow-hidden [mask:linear-gradient(black,transparent)]">
+            <svg
+              width="317"
+              height="214"
+              viewBox="0 0 317 214"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.6502 2.38322L2.30334 22.0051C0.827423 23.502 0 25.5197 0 27.6219L0 214L317 214L317 27.6219C317 25.5197 316.173 23.502 314.697 22.0051L295.35 2.38322C293.846 0.858434 291.794 0 289.653 0L27.3468 0C25.2055 0 23.1536 0.858435 21.6502 2.38322Z"
+                fill="#2B2B30"
+                stroke="#000"
+                strokeOpacity="1"
+              ></path>
+            </svg>
+          </div>
+          <div className="absolute inset-0 top-[5.25rem] flex justify-center overflow-hidden [mask:linear-gradient(black,transparent)]">
+            <svg
+              width="317"
+              height="214"
+              viewBox="0 0 317 214"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.6502 2.38322L2.30334 22.0051C0.827423 23.502 0 25.5197 0 27.6219L0 214L317 214L317 27.6219C317 25.5197 316.173 23.502 314.697 22.0051L295.35 2.38322C293.846 0.858434 291.794 0 289.653 0L27.3468 0C25.2055 0 23.1536 0.858435 21.6502 2.38322Z"
+                fill="#2B2B30"
+                stroke="#000"
+                strokeOpacity="1"
               ></path>
             </svg>
           </div>
@@ -221,10 +308,14 @@ const EncCard = () => {
               <div className="absolute inset-4 bg-gradient-to-b from-gray-850 to-gray-800/50 shadow-[0_1px_0_theme(colors.white/2%),0_-1px_0_theme(colors.white/6%),0_-2px_4px_theme(colors.white/2%),inset_0_1px_1px_theme(colors.black/20%)] rounded-full"></div>
               <div className="relative z-10 size-full bg-[repeating-radial-gradient(theme(colors.black/20%)_0.125rem,transparent_0.25rem)]">
                 <div className="flex size-full items-center justify-center drop-shadow-[0_1px_0_theme(colors.white/10%)]">
-                    <div
+                  <div
                     style={{ transform: "rotate(0deg)" }}
-                    className={`transition-all ease-initial duration-300 ${isCardHovered ? "delay-[1500ms] rotate-90" : "delay-[100ms] rotate-0"}`}
-                    >
+                    className={`transition-all ease-initial duration-300 ${
+                      isCardHovered
+                        ? "delay-[1500ms] rotate-90"
+                        : "delay-[100ms] rotate-0"
+                    }`}
+                  >
                     <svg
                       width="8"
                       height="36"

@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "lucide-react";
 import { useState } from "react";
 
 export default function SecurityDashboard() {
@@ -68,18 +69,18 @@ export default function SecurityDashboard() {
                 </svg>
               </div>
               <div className="font-mono text-xs text-zinc-500 transition-all duration-500 group-hover:text-white">
-                Fraudulent sign-ups detected
+                Setting up your Store ....
               </div>
-              <div className="ml-auto text-xs text-zinc-600 transition-colors duration-500 group-hover:text-zinc-400">
-                14:09
-              </div>
+                <div className="ml-auto text-xs text-zinc-600 transition-colors duration-500 group-hover:text-zinc-400">
+                {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
             </div>
             <div className="relative pl-[2.875rem] pt-16">
               <div className="absolute left-[calc(19/16*1rem)] top-0 -z-10 aspect-[39/393] w-[calc(39/16*1rem)]">
                 <svg
                   viewBox="0 0 39 393"
                   fill="none"
-                  className="absolute inset-0 size-full stroke-white/5 transition-all duration-700 group-hover:stroke-red-500/30"
+                  className="absolute inset-0 size-full stroke-white/5 transition-all duration-700 group-hover:stroke-green-500/30"
                 >
                   <path
                     d="M2 0V34.6863C2 36.808 2.84285 38.8429 4.34315 40.3431L34.6569 70.6569C36.1571 72.1571 37 74.192 37 76.3137V393"
@@ -116,7 +117,7 @@ export default function SecurityDashboard() {
                       transitionDelay: `${user.delay}ms`,
                     }}
                   >
-                    <div className="relative mt-[0.0625rem] flex size-5 flex-none items-center justify-center rounded-full bg-zinc-600/20 transition-all duration-500 group-hover:bg-red-500/20">
+                    <div className="relative mt-[0.0625rem] flex size-5 flex-none items-center justify-center rounded-full bg-zinc-600/20 transition-all duration-500 group-hover:bg-green-500/20">
                       <div
                         className="size-1 rounded-full bg-zinc-600 shadow-[0_1px_rgba(255,255,255,0.1)_inset,0_1px_2px_rgba(0,0,0,0.25)] transition-all duration-500"
                         style={{
@@ -125,27 +126,14 @@ export default function SecurityDashboard() {
                         }}
                       />
                       <div
-                        className="absolute inset-0 flex items-center justify-center rounded-full bg-red-500 transition-all duration-500"
+                        className="absolute inset-0 flex items-center justify-center rounded-full bg-green-500 transition-all duration-500"
                         style={{
                           opacity: isHovered ? 1 : 0,
                           transform: isHovered ? "scale(1)" : "scale(0.8)",
                           transitionDelay: `${user.delay + 100}ms`,
                         }}
                       >
-                        <svg
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden="true"
-                          className="size-4"
-                        >
-                          <path
-                            stroke="#131316"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.25"
-                            d="m5 5 6 6M11 5l-6 6"
-                          />
-                        </svg>
+                        <Check className="size-2" />
                       </div>
                     </div>
                     <div>

@@ -15,11 +15,12 @@ export function Safari({
   imageSrc,
   videoSrc,
   url,
-  width = 1203,
+  width = 1202,
   height = 753,
   mode = "default",
   ...props
 }: SafariProps) {
+  if (width === undefined) width = 1202;
   return (
     <svg
       width={width}
