@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                BigInt   @id @default(autoincrement()) @map("id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  provider          String   @db.VarChar(100) @map("provider")
+  providerAccountId String   @db.VarChar(255) @map("provider_account_id")
+  userId            BigInt   @map("user_id")
+  refresh_token     String?  @db.Text     @map("refresh_token")
+  access_token      String?  @db.Text     @map("access_token")
+  expires_at        Int?     @map("expires_at")
+  token_type        String?  @db.VarChar(50) @map("token_type")
+  scope             String?  @db.Text     @map("scope")
+  id_token          String?  @db.LongText @map("id_token")
+  session_state     String?  @db.Text     @map("session_state")
+  type              String   @db.VarChar(50) @map("type")
+
+  user User @relation("UserAccounts", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([provider, providerAccountId], map: "accounts_provider_provider_account_id_daac1f10_uniq")
+  @@map("account")
+}
+
+model ClientData {
+  id         BigInt   @id @default(autoincrement()) @map("id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  storeName  String   @db.VarChar(255) @map("store_name")
+  phone      String   @db.VarChar(20)  @map("phone")
+  address1   String   @db.VarChar(255) @map("address_line1")
+  address2   String   @db.VarChar(255) @map("address_line2")
+  city       String   @db.VarChar(128) @map("city")
+  state      String   @db.VarChar(128) @map("state")
+  postalCode String   @db.VarChar(32)  @map("postal_code")
+  taxId      String   @db.VarChar(64)  @map("tax_id")
+  userId     BigInt   @unique @map("user_id")
+
+  user    User?    @relation("ClientDataUser", fields: [userId], references: [id])
+  roles   Role[]
+  tenants User[]   @relation("UserTenant_ClientData")
+
+  @@index([city], map: "user_client_city_69d6c2_idx")
+  @@index([postalCode], map: "user_client_postal__7d3f2c_idx")
+  @@index([storeName], map: "user_client_store_n_080f3d_idx")
+  @@map("clientdata")
+}
+
+model Role {
+  id          BigInt    @id @default(autoincrement()) @map("id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  name        String    @db.VarChar(50) @map("name")
+  description String    @db.LongText @map("description")
+  isDefault   Boolean   @map("is_default")
+  tenantId    BigInt?   @map("tenant_id")
+
+  clientData  ClientData? @relation(fields: [tenantId], references: [id])
+  userRoles   UserRole[]
+
+  @@unique([name, tenantId], map: "user_role_name_tenant_id_49eee5e8_uniq")
+  @@index([tenantId], map: "user_role_tenant_id_109f0634_fk_user_clientdata_id")
+  @@map("role")
+}
+
+model Session {
+  id           BigInt   @id @default(autoincrement()) @map("id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  sessionToken String   @unique @map("session_token")
+  expires      DateTime @map("expires")
+  userId       BigInt   @map("user_id")
+
+  user User @relation("UserSessions", fields: [userId], references: [id])
+
+  @@map("session")
+}
+
+model User {
+  id            BigInt     @id @default(autoincrement()) @map("id")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  name          String?    @map("username")
+  email         String?    @unique @map("email")
+  image         String?    @map("image")
+  emailVerified DateTime?  @map("email_verified")
+  state         String     @default("pending") @map("state") // <-- added default
+  tenantId      BigInt?    @map("tenant_id")
+  accounts      Account[]  @relation("UserAccounts")
+  sessions      Session[]  @relation("UserSessions")
+  clientData    ClientData? @relation("ClientDataUser")
+  roles         UserRole[]
+  tenantOf      ClientData[] @relation("UserTenant_ClientData")
+
+  @@map("user")
+}
+
+model UserRole {
+  id        BigInt   @id @default(autoincrement()) @map("id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  roleId    BigInt   @map("role_id")
+  userId    BigInt   @map("user_id")
+
+  role Role @relation(fields: [roleId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, roleId], map: "user_userrole_user_id_role_id_11ae7e6f_uniq")
+  @@index([roleId], map: "user_userrole_role_id_76793e84_fk_user_role_id")
+  @@map("userrole")
+}

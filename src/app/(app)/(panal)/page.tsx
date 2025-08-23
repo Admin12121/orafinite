@@ -1,8 +1,5 @@
 "use client";
 
-import { AnimatedShinyText } from "@/components/global/magic";
-import { cn } from "@/lib/utils";
-import { ArrowRightIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SecurityDashboard from "./_components/security";
@@ -16,6 +13,9 @@ import AutoJoinCard from "./_components/customers/join";
 import EncCard from "./_components/encryption-animation";
 import PerformanceMeter from "./_components/performance-meter";
 import Card_Swap from "./_components/card_swap";
+import { ArrowRightIcon } from "lucide-react";
+import { AnimatedShinyText } from "@/components/global/magic";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const keypadRef = useRef<HTMLDivElement | null>(null);
@@ -323,17 +323,6 @@ export default function Home() {
             width={1700}
           />
         </div>
-        <div className="relative">
-          <div
-            className="absolute opacity-30 inset-x-0 h-px -top-px"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 1'%3E%3Crect width='1' height='1' fill='%23fff'/%3E%3C/svg%3E");`,
-              maskImage: `linear-gradient(to right, transparent, white 7rem, white calc(100% - 7rem), transparent)`,
-              marginLeft: "-7rem",
-              marginRight: "-7rem",
-            }}
-          ></div>
-        </div>
         <div className="relative pb-[calc(theme(padding.32)+theme(height.11))] pt-32">
           <div className="text-center">
             <h2 className="text-sm font-medium text-[#e2f75d]">
@@ -495,29 +484,13 @@ export default function Home() {
           </div>
           <div className="ml-[calc(-1*(theme(spacing.8)-theme(spacing[1.5])))] h-11 flex-auto bg-white"></div>
         </div>
-        <div className="text-center">
+        <div className="flex flex-col  items-center gap-5 text-center">
           <p className="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.015em] text-neutral-900">
             Built on a foundation of fast, production-grade tooling
           </p>
-          <p className="mx-auto mb-4 mt-4 max-w-xl text-balance text-zinc-400">
-            <span
-              data-br="_R_1m4clubstmivb_"
-              data-brr="1"
-              style={{
-                display: "inline-block",
-                verticalAlign: "top",
-                textDecoration: "inherit",
-                textWrap: "balance",
-              }}
-            >
-              Ever feel like authentication requirements change with the season?
-              Clerk keeps up with the latest trends and security best practices.
-            </span>
-          </p>
+          <SignIn />
         </div>
-        <div className="h-[500px] p-10 relative grid grid-cols-2 grid-rows-1 w-full">
-          <Card_Swap />
-        </div>
+        <div className="h-[500px] p-10 relative grid grid-cols-2 grid-rows-1 w-full"></div>
         <div className="absolute bottom-0 mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem]">
           <div className="relative -mx-2.5 flex -bottom-1 -mt-12">
             <svg

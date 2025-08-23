@@ -1132,3 +1132,8 @@ div.tp-dfwv {
     width: 0;
   }
 }
+
+::-webkit-scrollbar{
+  display: none;
+  width: 0px;
+}

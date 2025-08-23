@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "assets.aceternity.com",
+        hostname: "lh3.googleusercontent.com",
         pathname: "/**",
       },
       {
