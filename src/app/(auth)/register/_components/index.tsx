@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-
+import { useSearchParams } from "next/navigation";
 import Logo from "@/components/global/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,6 @@ import {
 import { RegisterSchema, RegisterInput } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { signIn } from "next-auth/react";
 import {
   Tooltip,
@@ -29,8 +28,23 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { setRegistrationDraft } from "@/actions/reg";
+import { toast } from "sonner";
 
 const Register = () => {
+  const params = useSearchParams();
+  React.useEffect(() => {
+    try {
+      const cookies = document.cookie.split(";").map((c) => c.trim());
+      const deny = cookies.find((c) => c.startsWith("deny_create="));
+      if (deny) {
+        toast("User doesn't exist.");
+        document.cookie = "deny_create=; Path=/; Max-Age=0; SameSite=Lax";
+      }
+    } catch (e) {
+      // no-op
+    }
+  }, [params]);
+
   const form = useForm<RegisterInput>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -204,7 +218,11 @@ const Register = () => {
                         className={cn(
                           "w-full bg-neutral-950 justify-start gap-5 px-2 h-12 cursor-pointer ring-1 ring-neutral-800 ring-offset-1 ring-offset-neutral-900 disabled:opacity-50"
                         )}
-                        onClick={() => formValid ? onSocial("google") : undefined}
+                        onClick={() =>
+                          formValid
+                            ? onSocial("google")
+                            : toast("Please fill in all fields.")
+                        }
                       >
                         <span className="bg-neutral-900 p-2 rounded-md">
                           <svg
@@ -258,9 +276,11 @@ const Register = () => {
                         Continue with Google
                       </Button>
                     </TooltipTrigger>
-                    {!formValid && <TooltipContent className="px-2 py-1 text-xs">
-                      Fill required fields first
-                    </TooltipContent>}
+                    {!formValid && (
+                      <TooltipContent className="px-2 py-1 text-xs">
+                        Fill required fields first
+                      </TooltipContent>
+                    )}
                   </Tooltip>
                 </TooltipProvider>
               )}

@@ -92,7 +92,7 @@ model User {
   email         String?    @unique @map("email")
   image         String?    @map("image")
   emailVerified DateTime?  @map("email_verified")
-  state         String     @default("pending") @map("state") // <-- added default
+  state         String     @default("pending") @map("state")
   tenantId      BigInt?    @map("tenant_id")
   accounts      Account[]  @relation("UserAccounts")
   sessions      Session[]  @relation("UserSessions")
@@ -100,6 +100,7 @@ model User {
   roles         UserRole[]
   tenantOf      ClientData[] @relation("UserTenant_ClientData")
 
+  Authenticator Authenticator[]
   @@map("user")
 }
 
@@ -116,4 +117,28 @@ model UserRole {
   @@unique([userId, roleId], map: "user_userrole_user_id_role_id_11ae7e6f_uniq")
   @@index([roleId], map: "user_userrole_role_id_76793e84_fk_user_role_id")
   @@map("userrole")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+}
+
+model Authenticator {
+  credentialID         String  @unique @map("credential_id")
+  userId               BigInt  @map("user_id")
+  providerAccountId    String  @map("provider_account_id")
+  credentialPublicKey  String  @map("credential_public_key")
+  counter              Int     @map("counter")
+  credentialDeviceType String  @map("credential_device_type")
+  credentialBackedUp   Boolean @map("credential_backed_up")
+  transports           String? @map("transports")
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([userId, credentialID])
+  @@map("authenticator")
 }

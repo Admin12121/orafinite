@@ -44,7 +44,7 @@ const SignIn = () => {
 
   const onClick = async (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
   };
 

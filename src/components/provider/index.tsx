@@ -2,8 +2,10 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes";
-// import Loader from "@/components/global/loader";
+import { Toaster } from "@/components/ui/sonner";
+import Spinner from "@/components/ui/spinner";
 
+// import Loader from "@/components/global/loader";
 
 export const Provider = ({ children, ...props }: ThemeProviderProps) => {
   return (
@@ -14,7 +16,12 @@ export const Provider = ({ children, ...props }: ThemeProviderProps) => {
       enableSystem
       disableTransitionOnChange
     >
-      {/* <Loader/> */}
+      <Toaster
+        icons={{ loading: <Spinner size="sm" color="secondary" /> }}
+        invert={true}
+        theme="system"
+        position="bottom-right"
+      />
       {children}
     </NextThemesProvider>
   );

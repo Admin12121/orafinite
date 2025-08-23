@@ -29,7 +29,7 @@ export default auth((req) => {
 
   if (matchRoute(protectedRoutes)) {
     if (!isLoggedIn)
-      return NextResponse.redirect(new URL("/auth/login", req.url));
+      return NextResponse.redirect(new URL("/signin", req.url));
     return NextResponse.next();
   }
   return NextResponse.next();
