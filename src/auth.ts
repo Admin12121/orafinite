@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import authConfig from "./auth.config";
+import authConfig from "./auth.config.node";
 import { getUserbyId } from "@/lib";
 
 import PrismaAdapterWithGuard from "./lib/adapter-guard";
