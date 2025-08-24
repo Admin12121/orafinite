@@ -9,5 +9,5 @@ export async function getValidSessionUserId() {
   ) {
     return null;
   }
-  return session.user.id;
+  return BigInt(session.user.id);
 }

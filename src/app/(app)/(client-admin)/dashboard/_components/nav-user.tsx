@@ -48,10 +48,12 @@ export function NavUser({
   user,
   signOut,
   side,
+  status
 }: {
   user: any;
   signOut: () => void;
   side?: any;
+  status: "authenticated" | "unauthenticated" | "loading";
 }) {
   const { isMobile } = useSidebar();
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -166,7 +168,7 @@ export function NavUser({
               Make changes to your profile here. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
-          <Setting />
+          <Setting user={user} status={status} settingsOpen={settingsOpen}/>
         </DialogContent>
       </Dialog>
     </>

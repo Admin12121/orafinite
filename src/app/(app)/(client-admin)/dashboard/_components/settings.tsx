@@ -5,9 +5,10 @@ import {
   CreditCard,
   Shield,
   User,
+  Grid2x2,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,29 +17,28 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { RegisterSchema, RegisterInput } from "@/schemas";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import ImageCropper from "@/components/global/imagecrop";
-import * as RPNInput from "react-phone-number-input";
 import { Switch } from "@/components/ui/switch";
 import { signIn } from "next-auth/webauthn";
 import { toast } from "sonner";
+import { useGetPassKeyQuery } from "@/lib/store/api";
+
 type AuthResult =
   | undefined
   | { error?: string; ok?: boolean; url?: string; status?: number };
 
-const Setting = () => {
+const Setting = ({
+  user,
+  status,
+  settingsOpen,
+}: {
+  user: any;
+  status: "authenticated" | "unauthenticated" | "loading";
+  settingsOpen: boolean;
+}) => {
+  const { data: passkeyData } = useGetPassKeyQuery(
+    {},
+    { skip: status === "unauthenticated" || !settingsOpen }
+  );
   const { setTheme, resolvedTheme } = useTheme();
 
   const handlePasskey = async () => {
@@ -56,14 +56,7 @@ const Setting = () => {
     }
   };
 
-  const form = useForm<RegisterInput>({
-    resolver: zodResolver(RegisterSchema),
-    defaultValues: {
-      name: "",
-      store: "",
-      phone: "",
-    },
-  });
+
   return (
     <Tabs
       defaultValue="tab-1"
@@ -144,78 +137,6 @@ const Setting = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <h1 className="text-4xl">Store Details</h1>
-          <Separator />
-          <div className="space-y-2 rounded-lg flex p-2 w-full">
-            <Form {...form}>
-              <form
-                className="space-y-6 w-full"
-                // onSubmit={form.handleSubmit(onSubmit)}
-              >
-                <ImageCropper />
-                <FormField
-                  control={form.control}
-                  name="store"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label className="font-normal">Store Name</Label>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isLoading}
-                          type="text"
-                          placeholder="Store Name"
-                          className="peer pe-9 h-[42px] dark:border-zinc-800"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label className="font-normal">Full Name</Label>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          // disabled={isLoading}
-                          type="text"
-                          placeholder="Full Name"
-                          className="peer pe-9 h-[42px] dark:border-zinc-800"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label className="font-normal">Phone Number</Label>
-                      <FormControl>
-                        <RPNInput.default
-                          className="flex rounded-md shadow-xs"
-                          international={false}
-                          defaultCountry="NP"
-                          countrySelectComponent={CountrySelect}
-                          inputComponent={PhoneInput}
-                          placeholder="Enter phone number"
-                          limitMaxLength
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-          </div>
         </TabsContent>
         <TabsContent value="billing" className="px-5 py-2 space-y-5">
           <h1 className="text-4xl">Billing</h1>
@@ -281,6 +202,73 @@ const Setting = () => {
               Add PassKey
             </Button>
           </div>
+          <div>
+            {passkeyData &&
+              Array.isArray(passkeyData.keys) &&
+              passkeyData.keys.length > 0 && (
+                <ul className="space-y-2">
+                  {passkeyData.keys.map((k: any) => (
+                    <li
+                      key={k.credentialID}
+                      className="space-y-1 rounded-md border p-3 text-xs"
+                    >
+                      <div className="flex  gap-2">
+                        <span className="font-mono">
+                          <Grid2x2 className="size-10"/>
+                        </span>
+                        <div className="flex flex-col w-full">
+                          {k.label && (
+                            <span className="text-neutral-800 dark:text-white">
+                              {k.label}{" "}
+                              {`(${new Date(k.createdAt).toLocaleString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                  hour: "numeric",
+                                  minute: "2-digit",
+                                  second: "2-digit",
+                                  hour12: true,
+                                }
+                              )})`}
+                            </span>
+                          )}
+                          <div className="text-neutral-500 dark:text-neutral-400">
+                            Created:{" "}
+                            {new Date(k.createdAt).toLocaleString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                              hour: "numeric",
+                              minute: "2-digit",
+                              second: "2-digit",
+                              hour12: true,
+                            })}
+                          </div>
+                          {k.lastUsedAt && (
+                            <div className="text-neutral-400">
+                              Last used:{" "}
+                              {new Date(k.lastUsedAt).toLocaleString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                hour12: true,
+                              })}
+                              , {k.lastUsedUserAgent} on {k.lastUsedOs} in{" "}
+                              {k.lastUsedCity}, {k.lastUsedCountry}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+          </div>
           <Separator />
           <div className="space-y-2 flex">
             <span className="max-w-[80%] space-y-2">
@@ -316,27 +304,3 @@ const Setting = () => {
 
 export default Setting;
 
-const PhoneInput = ({ className, ...props }: React.ComponentProps<"input">) => {
-  return (
-    <Input
-      data-slot="phone-input"
-      className={cn(
-        "-ms-px rounded-s-none shadow-none focus-visible:z-10 h-[42px] dark:border-zinc-800",
-        className
-      )}
-      {...props}
-    />
-  );
-};
-
-PhoneInput.displayName = "PhoneInput";
-
-const CountrySelect = () => {
-  return (
-    <div className="dark:border-zinc-800 text-muted-foreground focus-within:border-ring focus-within:ring-ring/50 hover:bg-accent hover:text-foreground has-aria-invalid:border-destructive/60 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 relative inline-flex items-center self-stretch rounded-s-md border py-2 ps-3 pe-2 transition-[color,box-shadow] outline-none focus-within:z-10 focus-within:ring-[3px] has-disabled:pointer-events-none has-disabled:opacity-50">
-      <div className="inline-flex items-center gap-1" aria-hidden="true">
-        <span className="text-muted-foreground/80">+977</span>
-      </div>
-    </div>
-  );
-};

@@ -44,26 +44,27 @@ const data = {
       icon: ChartBarStacked,
       isActive: true,
     },
-    { title: "Products", url: "dashboard/products", icon: Package, isActive: true },
-    { title: "Reviews", url: "dashboard/reviews", icon: MessageCircle, isActive: true },
-    { title: "Orders", url: "dashboard/orders", icon: TruckElectric, isActive: true },
+    { title: "Products", url: "/dashboard/products", icon: Package, isActive: true },
+    { title: "Reviews", url: "/dashboard/reviews", icon: MessageCircle, isActive: true },
+    { title: "Orders", url: "/dashboard/orders", icon: TruckElectric, isActive: true },
     {
       title: "Discount Coupons",
       url: "dashboard/discounts",
       icon: TicketPercent,
       isActive: true,
     },
-    { title: "Customers", url: "dashboard/customers", icon: UserRound, isActive: true },
+    { title: "Customers", url: "/dashboard/customers", icon: UserRound, isActive: true },
   ],
   customization: [
-    { title: "Pages", url: "dashboard/pages", icon: PanelsTopLeft, isActive: true },
-    { title: "Appearance", url: "dashboard/appearance", icon: Contrast, isActive: true },
-    { title: "Payment Settings", url: "dashboard/payment-settings", icon: WalletMinimal, isActive: true },
+    { title: "Store Settings", url: "/dashboard/store-settings", icon: PanelsTopLeft, isActive: true },
+    { title: "Pages", url: "/dashboard/pages", icon: PanelsTopLeft, isActive: true },
+    { title: "Appearance", url: "/dashboard/appearance", icon: Contrast, isActive: true },
+    { title: "Payment Settings", url: "/dashboard/payment-settings", icon: WalletMinimal, isActive: true },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user, signOut } = useAuthUser();
+export function AppSidebar({...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user, signOut, status } = useAuthUser();
 
   return (
     <Sidebar
@@ -102,7 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <NavMain title="Customization" items={data.customization} />
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={user} signOut={signOut} />
+          <NavUser user={user} signOut={signOut} status={status}/>
         </SidebarFooter>
       </Sidebar>
       <Sidebar variant="inset" {...props}>
@@ -134,7 +135,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarContent>
         <SidebarFooter className="space-y-5">
           <SidebarOptInForm />
-          <NavUser user={user} signOut={signOut} side={"top"} />
+          <NavUser user={user} signOut={signOut} side={"top"} status={status}/>
         </SidebarFooter>
       </Sidebar>
     </Sidebar>

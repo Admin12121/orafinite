@@ -137,6 +137,14 @@ model Authenticator {
   credentialBackedUp   Boolean @map("credential_backed_up")
   transports           String? @map("transports")
  
+  label                String?   @map("label")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  lastUsedAt           DateTime? @map("last_used_at")
+  lastUsedUserAgent    String?   @map("last_used_ua")
+  lastUsedOs           String?   @map("last_used_os")
+  lastUsedCity         String?   @map("last_used_city")
+  lastUsedCountry      String?   @map("last_used_country")
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([userId, credentialID])
