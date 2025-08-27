@@ -25,7 +25,6 @@ export default function PrismaAdapterWithGuard(): Adapter {
         throw new Error("Adapter error: createUser is not implemented.");
       }
       const user = await base.createUser(data);
-      cookieStore.set("regDraft", "", { path: "/", maxAge: 0 });
       return user;
     },
 

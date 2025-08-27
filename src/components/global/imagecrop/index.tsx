@@ -79,7 +79,6 @@ async function getCroppedImg(
       }, "image/jpeg") // Specify format and quality if needed
     })
   } catch (error) {
-    console.error("Error in getCroppedImg:", error)
     return null
   }
 }
@@ -123,11 +122,6 @@ export default function ImageCropper() {
   const handleApply = async () => {
     // Check if we have the necessary data
     if (!previewUrl || !fileId || !croppedAreaPixels) {
-      console.error("Missing data for apply:", {
-        previewUrl,
-        fileId,
-        croppedAreaPixels,
-      })
       // Remove file if apply is clicked without crop data?
       if (fileId) {
         removeFile(fileId)
@@ -158,7 +152,6 @@ export default function ImageCropper() {
       // 5. Close the dialog (don't remove the file yet)
       setIsDialogOpen(false)
     } catch (error) {
-      console.error("Error during apply:", error)
       // Close the dialog even if cropping fails
       setIsDialogOpen(false)
     }

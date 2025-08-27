@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import { Provider } from "@/components/provider";
 import "./globals.css";
 
-import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 
 const geistSansLight = localFont({
@@ -54,14 +53,12 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <SessionProvider session={session}>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSansLight.variable} ${vrc.variable} ${geistSansRegular.variable} ${geistSansMedium.variable} ${geistSansSemibold.variable} ${geistSansBold.variable} antialiased`}
-        >
-          <Provider>{children}</Provider>
-        </body>
-      </html>
-    </SessionProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSansLight.variable} ${vrc.variable} ${geistSansRegular.variable} ${geistSansMedium.variable} ${geistSansSemibold.variable} ${geistSansBold.variable} antialiased`}
+      >
+        <Provider session={session}>{children}</Provider>
+      </body>
+    </html>
   );
 }

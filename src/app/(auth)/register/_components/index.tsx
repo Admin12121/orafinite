@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/tooltip";
 import { setRegistrationDraft } from "@/actions/reg";
 import { toast } from "sonner";
+import { Default_Login_Redirect } from "@/routes";
 
 const Register = () => {
   const params = useSearchParams();
@@ -69,14 +70,10 @@ const Register = () => {
     });
   }
 
-  // const onSubmit = async (vals: RegisterInput) => {
-  //   await persistDraft();
-  // };
-
   const onSocial = async (provider: "google") => {
     if (!formValid) return;
-    await persistDraft();
-    await signIn(provider, { callbackUrl: "/onboarding" });
+    persistDraft();
+    signIn(provider, { callbackUrl: Default_Login_Redirect });
   };
 
   return (

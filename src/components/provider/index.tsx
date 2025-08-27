@@ -8,8 +8,13 @@ import Spinner from "@/components/ui/spinner";
 import { Provider as ReduxProvider } from "react-redux";
 import { store, AppStore } from "@/lib/store/";
 import ClickSpark from "@/components/global/cursor-sparklin";
+import { SessionProvider } from "next-auth/react";
 
-export const Provider = ({ children, ...props }: ThemeProviderProps) => {
+interface ProviderProps extends ThemeProviderProps {
+  session: any;
+}
+
+export const Provider = ({ children, session, ...props }: ProviderProps) => {
   const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
     storeRef.current = store();
@@ -28,7 +33,9 @@ export const Provider = ({ children, ...props }: ThemeProviderProps) => {
         theme="system"
         position="bottom-right"
       />
-      <ReduxProvider store={storeRef.current}>{children}</ReduxProvider>
+      <SessionProvider session={session} refetchOnWindowFocus={false}>
+        <ReduxProvider store={storeRef.current}>{children}</ReduxProvider>
+      </SessionProvider>
       <ClickSpark />
     </NextThemesProvider>
   );

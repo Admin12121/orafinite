@@ -3,7 +3,7 @@ import Google from "next-auth/providers/google";
 
 export default {
   pages: {
-    signIn: "/onboarding",
+    signIn: "/",
     error: "/register",
   },
   providers: [

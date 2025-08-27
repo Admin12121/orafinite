@@ -12,7 +12,6 @@ export async function GET() {
         { status: 401 }
       );
     }
-    console.log(userId)
     const keys = await db.authenticator.findMany({
       where: { userId },
       select: {
@@ -26,7 +25,6 @@ export async function GET() {
         lastUsedCity: true,
       },
     });
-    console.log(keys)
     return NextResponse.json({ keys });
   } catch (error: any) {
     return NextResponse.json(

@@ -35,6 +35,10 @@ const nextConfig: NextConfig = {
         hostname: "i.pinimg.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
     ],
   },
 };

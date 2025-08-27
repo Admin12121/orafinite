@@ -49,7 +49,7 @@ const data = {
     { title: "Orders", url: "/dashboard/orders", icon: TruckElectric, isActive: true },
     {
       title: "Discount Coupons",
-      url: "dashboard/discounts",
+      url: "/dashboard/discount-coupons",
       icon: TicketPercent,
       isActive: true,
     },

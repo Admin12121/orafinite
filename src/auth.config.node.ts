@@ -4,7 +4,7 @@ import Passkey from "next-auth/providers/passkey";
 
 export default {
   pages: {
-    signIn: "/onboarding",
+    signIn: "/",
     error: "/register",
   },
   providers: [
