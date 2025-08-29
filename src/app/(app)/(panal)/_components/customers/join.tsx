@@ -209,9 +209,9 @@ export default function AutoJoinCard() {
           </div>
           <div className="flex gap-4">
             {[
-              "/avatars/person1.png",
-              "/avatars/person3.png",
-              "/avatars/person2.png",
+              "/user.png",
+              "/user.png",
+              "/user.png",
             ].map((src, i) => {
               const displayIdx = [0, 2, 1][i];
               return (
